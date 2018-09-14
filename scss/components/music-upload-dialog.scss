@@ -1,0 +1,43 @@
+.music-upload-dialog {
+	@extend .base-dialog;
+
+	.body-wrapper {
+		&>div.icon {
+			margin: 5px;
+			width: calc(100% - 10px);
+			height: 200px;
+			text-align: center;
+
+			&>img {
+				width: 200px;
+				height: 200px;
+			}
+		}
+
+		&>div.info {
+			display: flex;
+			margin: 5px;
+			height: 30px;
+			align-items: center;
+
+			&>.label {
+				width: 25px;
+				margin-right: 5px;
+				font-size: 12px;
+				text-align: right;
+			}
+
+			&>input {
+				width: calc(100% - 30px);
+				height: 20px;
+				border: none;
+				border-bottom: solid transparent 1px;
+				outline: none;
+
+				&:hover {
+					border-bottom: solid #A8A8A8 1px;
+				}
+			}
+		}
+	}
+}

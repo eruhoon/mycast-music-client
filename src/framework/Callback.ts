@@ -1,0 +1,1 @@
+type Callback<T=void> = (param?: T) => void;

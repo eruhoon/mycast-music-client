@@ -1,0 +1,79 @@
+.base-dialog {
+	color: #383838;
+
+	.background {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100vw;
+		height: 100vh;
+		background: black;
+		opacity: 0.3;
+		content: '';
+	}
+
+	.dialog {
+		@include shadow();
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 300px;
+		height: auto;
+		border-radius: 5px;
+		transform: translate(calc(50vw - 50%), calc(50vh - 50%));
+		background: #E8E8E8;
+
+		.title-bar {
+			display: flex;
+			background: darken(#E8E8E8, 20%);
+			width: 100%;
+			height: 30px;
+			align-items: center;
+			border-radius: 5px;
+
+			i {
+				width: 25px;
+				height: 25px;
+				line-height: 25px;
+				font-size: 22px;
+				margin-left: 5px;
+				margin-right: 5px;
+				text-align: center;
+			}
+
+			&>div.title {
+				@include truncate;
+				width: calc(100% - 40px);
+				font-size: 15px;
+				line-height: 20px;
+				color: #585858;
+			}
+		}
+
+		.body {}
+
+		.button-wrapper {
+			width: calc(100% - 10px);
+			height: 30px;
+			margin: 5px;
+			text-align: right;
+
+			button {
+				outline: none;
+				border: none;
+				border-radius: 5px;
+				width: auto;
+				height: 30px;
+				background: darken(#E8E8E8, 20%);
+
+				&:hover {
+					background: darken(#E8E8E8, 30%);
+				}
+
+				&:active {
+					background: darken(#E8E8E8, 20%);
+				}
+			}
+		}
+	}
+}

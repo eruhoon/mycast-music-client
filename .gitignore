@@ -1,0 +1,17 @@
+# Output Code
+dist
+
+# Nodejs
+node_modules
+
+# Visual Code
+.vscode
+
+# Npm
+npm-debug.log
+
+# DotEnv
+.env
+
+# Sass
+.sass-cache

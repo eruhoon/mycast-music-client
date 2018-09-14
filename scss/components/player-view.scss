@@ -1,0 +1,235 @@
+.player-view {
+	$background-color: #181818;
+	display: flex;
+	position: relative;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: $background-color;
+		opacity: 0.6;
+	}
+
+	&>.icon-wrapper {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 150px;
+		height: 150px;
+
+		&>img.icon {
+			width: 100%;
+			height: 100%;
+
+			&:after {
+				content: "";
+				display: block;
+				padding-bottom: 100%;
+			}
+		}
+	}
+
+	&>.right {
+		position: absolute;
+		top: 0;
+		left: 150px;
+		width: calc(100% - 150px);
+		height: 100%;
+
+		&>.info {
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			width: calc(100% - 20px);
+			height: 80px;
+			align-items: center;
+
+			&>.artist {
+				@include truncate;
+				width: 100%;
+				height: 25px;
+				line-height: 25px;
+				font-size: 18px;
+				color: #787878;
+			}
+
+			&>.title {
+				@include truncate;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				font-size: 22px;
+				color: #B8B8B8;
+			}
+
+			&>.detail {
+				.label {
+					display: inline-block;
+					margin-right: 5px;
+					padding: 2px;
+					min-width: 30px;
+					height: 15px;
+					text-align: center;
+					font-size: 10px;
+					line-height: 15px;
+					border-radius: 2px;
+					font-weight: bold;
+					color: #B8B8B8;
+					background: #282828;
+				}
+			}
+		}
+
+		&>.component {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: calc(100% - 100px);
+
+			&>.seek-bar {
+				width: 100%;
+				height: 10px;
+				background: #181818;
+
+				&>div {
+					@include transition(width 1s);
+					height: 100%;
+					background: #B8B8B8;
+				}
+			}
+
+			&>.button-view {
+				display: flex;
+				justify-content: space-between;
+
+				&>.left-buttons {
+					display: flex;
+					height: 20px;
+					margin: 10px;
+					align-items: center;
+
+					&>button {
+						padding: 0;
+						width: 25px;
+						height: 25px;
+						margin: 1px;
+						background: #282828;
+						cursor: pointer;
+						border: none;
+						border-radius: 3px;
+						outline: 0;
+
+						i {
+							font-size: 22px;
+							line-height: 25px;
+							color: #B8B8B8;
+						}
+
+						&.active {
+							background: #484848;
+						}
+					}
+				}
+
+				&>.right-buttons {
+					display: flex;
+					height: 20px;
+					margin: 10px;
+					align-items: center;
+
+					&>button {
+						padding: 0;
+						width: 25px;
+						height: 25px;
+						margin: 1px;
+						cursor: pointer;
+						border: none;
+						border-radius: 3px;
+						outline: 0;
+						background: transparent;
+
+						i {
+							font-size: 22px;
+							line-height: 25px;
+							color: #B8B8B8;
+						}
+					}
+
+					&>.volume-bar {
+						display: inline-block;
+						width: 70px;
+						height: 10px; // background: lighten($concept-color, 10%);
+						font-size: 10px;
+						border-radius: 5px;
+						background: #888888;
+
+						&>div {
+							background: #B8B8B8;
+							height: 100%;
+							border-radius: 5px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/*
+	.ext,
+	.bitrate {
+		position: absolute;
+		top: 55px;
+		width: 30px;
+		height: 15px;
+		text-align: center;
+		font-size: 10px;
+		border-radius: 2px;
+		font-weight: bold; // background: lighten($concept-color, 15%);
+	}
+	.ext {
+		left: 80px;
+	}
+	.bitrate {
+		left: 115px;
+	}
+	.time {
+		position: absolute;
+		top: 55px;
+		right: 12px; // color: lighten($concept-color, 20%);
+		font-size: 10px;
+	}
+	.seekbar {
+		position: absolute;
+		top: 75px;
+		width: 100%;
+		height: 5px; // background: $concept-color;
+	}
+	.buttonset {
+		position: absolute;
+		top: 85px;
+		button {
+			padding: 0;
+			width: 18px;
+			height: 18px;
+			margin: 1px; // background: lighten($concept-color, 10%);
+			cursor: pointer;
+			border: none;
+			border-radius: 3px;
+			i {
+				font-size: 18px;
+				color: white;
+			}
+		}
+		.volumebar {
+			display: inline-block;
+			width: 70px;
+			height: 5px; // background: lighten($concept-color, 10%);
+			margin-bottom: 7px;
+		}
+	}*/
+}
