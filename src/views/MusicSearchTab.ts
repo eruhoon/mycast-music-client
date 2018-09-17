@@ -2,14 +2,16 @@ import { ParentView } from "framework/ParentView";
 import { MusicListView } from "./MusicListView";
 import { IMusicEntryController } from "controllers/IMusicController";
 import { MusicUploadDialog } from "./MusicUploadDialog";
+import { IMusicSearchController } from "controllers/IMusicSearchController";
 
 export class MusicListTab extends ParentView {
 
+	private mController: IMusicSearchController;
 	private mMusicListView: MusicListView;
 
 	private mTimer: number;
 
-	public constructor() {
+	public constructor(controller: IMusicSearchController) {
 		super();
 
 		let searchIcon = $('<i>').addClass('material-icons').text('search');
@@ -34,6 +36,8 @@ export class MusicListTab extends ParentView {
 		this.addJQuery(searchMenu);
 		this.addView(this.mMusicListView);
 		this.addJQuery(uploadButton);
+
+		this.mController = controller;
 	}
 
 	public setMusicEntryController(controller: IMusicEntryController) {
@@ -51,6 +55,19 @@ export class MusicListTab extends ParentView {
 	}
 
 	protected onUploadButtonClick() {
+
+		let inputButton = $('<input type="file" accept="audio/*">');
+		inputButton.on('change', e => {
+			let element: any = inputButton[0];
+			let file: File = element.files[0];
+			if (file.type.indexOf('audio') !== 0) return;
+
+			let dialog = new MusicUploadDialog(file);
+			dialog.setMusicUploadHandler(this.mController);
+			dialog.open();
+
+		});
+		inputButton.trigger('click');
 		//const dialog = new MusicUploadDialog();
 		//dialog.open();
 	}

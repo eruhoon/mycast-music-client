@@ -5,12 +5,16 @@ export class MusicController implements IMusicController {
 
 	private mMusics: Music[] = null;
 
-	public loadMusicList(query: string, callback: MusicLoadCallback): void {
+	public loadMusicList(query: string, callback: MusicLoadCallback) {
+		$.post('/home/music/musiclist/', (params: MusicParam[]) => {
+			this.mMusics = params.map(param => new Music(param));
+			callback(this.searchMusic(query));
+		}, 'json');
+	}
+
+	public loadMusicListCache(query: string, callback: MusicLoadCallback) {
 		if (this.mMusics === null) {
-			$.post('/home/music/musiclist/', (params: MusicParam[]) => {
-				this.mMusics = params.map(param => new Music(param));
-				callback(this.searchMusic(query));
-			}, 'json');
+			this.loadMusicList(query, callback);
 		} else {
 			callback(this.searchMusic(query));
 		}

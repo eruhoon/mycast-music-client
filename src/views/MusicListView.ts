@@ -1,12 +1,17 @@
-import { IMusicController, IMusicEntryController } from 'controllers/IMusicController';
+import {
+	IMusicController, IMusicEntryController, MusicLoadCallback
+} from 'controllers/IMusicController';
 import { MusicController } from 'controllers/MusicController';
+import { Toast } from 'framework/Toast';
+import { MusicUploadListener } from 'handlers/IMusicUploadHandler';
 import { Music } from 'models/Music';
 
 import { ListItem } from './ListItem';
 import { ListView } from './ListView';
 import { MusicView } from './MusicView';
 
-export class MusicListView extends ListView<Music> {
+export class MusicListView
+	extends ListView<Music> implements MusicUploadListener {
 
 	private static readonly DEFAULT_CAPACITY: number = 50;
 	private static readonly DEFAULT_CAPACITY_DELTA: number = 50;
@@ -32,6 +37,11 @@ export class MusicListView extends ListView<Music> {
 		this.loadMusic();
 	}
 
+	public onMusicUpload(music: Music): void {
+		new Toast('업로드 완료했습니다.').toast();
+		this.loadMusic(true);
+	}
+
 	public setSearchQuery(query: string) {
 
 		if (this.mSearchQuery !== query) {
@@ -44,13 +54,23 @@ export class MusicListView extends ListView<Music> {
 
 	public setMusicEntryController(controller: IMusicEntryController) {
 		this.mMusicEntryController = controller;
+		this.mMusicEntryController.setMusicUploadListener(this);
 	}
 
-	private loadMusic() {
-		this.mMusicController.loadMusicList(this.mSearchQuery, musics => {
+	private loadMusic(enforced: boolean = false) {
+
+		let callback: MusicLoadCallback = musics => {
 			const displayMusics = musics.filter((e, i) => i < this.mCapacity);
 			this.bind(displayMusics);
-		});
+		};
+
+		if (enforced) {
+			this.mMusicController.loadMusicList(this.mSearchQuery, callback);
+		} else {
+			this.mMusicController.loadMusicListCache(
+				this.mSearchQuery, callback);
+		}
+
 	}
 
 	protected bindView(item: Music): ListItem {

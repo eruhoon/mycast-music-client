@@ -97,11 +97,9 @@ export class Client {
 				if (file.type.indexOf("audio") !== 0) return;
 				console.log(file);
 
-				let dialog = new MusicUploadDialog(this.mKey, file);
+				let dialog = new MusicUploadDialog(file);
 				dialog.setMusicUploadHandler(this.mMainController);
 				dialog.open();
-
-
 			}
 		}
 	}

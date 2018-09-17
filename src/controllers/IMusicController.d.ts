@@ -1,4 +1,5 @@
 import { Music } from 'models/Music';
+import { IMusicUploadHandler } from 'handlers/IMusicUploadHandler';
 
 export type MusicLoadCallback = (musics: Music[]) => void;
 
@@ -13,10 +14,10 @@ export interface IMusicShareHandler {
 }
 
 export interface IMusicEntryController
-	extends IMusicPlayHandler, IMusicShareHandler {
+	extends IMusicPlayHandler, IMusicShareHandler, IMusicUploadHandler {
 
 	addPlayList(music: Music): void;
-	deleteMusic(music: Music): void;
+	removeMusic(music: Music): void;
 	setTags(music: Music, tags: string[],
 		onSuccess: (tags: string[]) => void): void;
 }
@@ -24,4 +25,5 @@ export interface IMusicEntryController
 export interface IMusicController {
 
 	loadMusicList(query: string, callback: MusicLoadCallback): void;
+	loadMusicListCache(query: string, callback: MusicLoadCallback): void;
 }

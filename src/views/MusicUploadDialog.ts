@@ -19,14 +19,13 @@ type MusicUploadResponse = {
 export class MusicUploadDialog extends BaseDialog {
 
 	private mUploadHandler: IMusicUploadHandler;
-	private mUploader: string;
 	private mFile: File;
 
 	private mIconView: JQuery;
 	private mTitleInput: JQuery;
 	private mArtistInput: JQuery;
 
-	public constructor(uploader: string, file: File) {
+	public constructor(file: File) {
 		super();
 		this.setClass('music-upload-dialog');
 		this.setIcon('playlist_add');
@@ -59,10 +58,8 @@ export class MusicUploadDialog extends BaseDialog {
 		uploadButton.one('click', _ => { this.onUploaClick(); });
 		this.addButton(uploadButton);
 
-		this.mUploader = uploader;
 		this.mFile = file;
 		Id3Reader.loadUrl(file, id3 => this.onDataLoad(id3));
-
 	}
 
 	public setMusicUploadHandler(handler: IMusicUploadHandler) {
@@ -79,7 +76,6 @@ export class MusicUploadDialog extends BaseDialog {
 
 		let entry: UploadMusic = {
 			artist: this.mArtistInput.val().toString(),
-			uploaderHash: this.mUploader,
 			title: this.mTitleInput.val().toString(),
 			file: this.mFile
 		}

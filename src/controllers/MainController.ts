@@ -1,5 +1,5 @@
 import { Toast } from 'framework/Toast';
-import { IMusicUploadHandler, UploadMusic } from 'handlers/IMusicUploadHandler';
+import { IMusicUploadHandler, UploadMusic, MusicUploadListener } from 'handlers/IMusicUploadHandler';
 import { Music } from 'models/Music';
 import { PlayCategory } from 'models/PlayCategory';
 import { RepeatMode } from 'models/Player';
@@ -8,19 +8,19 @@ import { MusicLoader } from 'utils/MusicLoader';
 import { BackgroundView } from 'views/BackgroundView';
 import { IBackgroundView } from 'views/IBackgroundView';
 import { IMainView } from 'views/IMainView';
+import { IMusicListView } from 'views/IMusicListView';
 import { IPlayListView } from 'views/IPlayListView';
 import { PlayerView } from 'views/PlayerView';
 import { WebSocketNetworkModel } from 'WebSocketNetworkModel';
 
 import { IFavoriteController } from './IFavoriteController';
-import { IMusicEntryController } from './IMusicController';
+import { IMusicSearchController } from './IMusicSearchController';
 import { INetworkController } from './INetworkController';
 import { IPlayListController } from './IPlayListController';
-import { IMusicListView } from 'views/IMusicListView';
 
 export class MainController
 	implements INetworkController, IFavoriteController,
-	IPlayListController, IMusicEntryController, IMusicUploadHandler {
+	IPlayListController, IMusicSearchController, IMusicUploadHandler {
 
 	private mHash: string;
 
@@ -36,6 +36,7 @@ export class MainController
 	private mMusicListView: IMusicListView;
 	private mPlayListView: IPlayListView;
 	private mBackgroundView: IBackgroundView;
+	private mMusicUploadListener: MusicUploadListener;
 
 	public constructor(hash: string) {
 
@@ -244,7 +245,7 @@ export class MainController
 		let url = '/home/music/upload';
 		const formData = new FormData();
 		formData.append('artist', entry.artist);
-		formData.append('hash', entry.uploaderHash);
+		formData.append('hash', this.mHash);
 		formData.append('title', entry.title);
 		formData.append('file', entry.file);
 
@@ -262,16 +263,30 @@ export class MainController
 				return;
 			}
 			console.log(data);
-			new Toast('업로드 완료했습니다.').toast();
+			let res = data.response;
+			let music: Music = new Music({
+				artist: res.artist,
+				bitrate: res.bitrate,
+				hash: res.hash,
+				idx: parseInt(res.idx),
+				playtime: res.playtime,
+				tag: JSON.parse(res.tag),
+				title: res.title
+			});
+			this.mMusicUploadListener.onMusicUpload(music);
 		});
 	}
 
-	public deleteMusic(music: Music) {
+	public removeMusic(music: Music) {
 		const strconfirm = confirm('Are you sure you want to delete?');
 		if (strconfirm !== true) return;
 		$.post('/home/music/delete/', { hash: music.getHash() }, res => {
 			console.log(res);
 		});
+	}
+
+	public setMusicUploadListener(listener: MusicUploadListener): void {
+		this.mMusicUploadListener = listener;
 	}
 
 	public setTags(

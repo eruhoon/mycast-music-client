@@ -5,7 +5,7 @@ export type MusicParam = {
 	artist: string;
 	bitrate: number;
 	playtime: string;
-	url: string;
+	url?: string;
 	tag: string[];
 };
 

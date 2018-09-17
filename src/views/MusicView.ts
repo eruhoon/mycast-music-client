@@ -42,8 +42,9 @@ export class MusicView extends BaseMusicView {
 	}
 
 	protected onDeleteButtonClick() {
-		this.mController.deleteMusic(this.mMusic);
+		this.mController.removeMusic(this.mMusic);
 	}
+
 	protected onDownloadButtonClick() {
 		this.downloadFile();
 	}

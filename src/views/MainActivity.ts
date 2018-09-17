@@ -55,7 +55,7 @@ export class MainActivity extends BaseActivity
 		this.mPlayListTab.hide();
 		tabsView.addView(this.mPlayListTab);
 
-		this.mMusicSearchTab = new MusicListTab();
+		this.mMusicSearchTab = new MusicListTab(controller);
 		this.mMusicSearchTab.setMusicEntryController(controller);
 		this.mMusicSearchTab.hide();
 		tabsView.addView(this.mMusicSearchTab);

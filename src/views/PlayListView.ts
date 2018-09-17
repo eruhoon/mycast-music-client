@@ -1,9 +1,9 @@
+import { IPlayListController } from 'controllers/IPlayListController';
 import { Music } from 'models/Music';
 
 import { ListItem } from './ListItem';
 import { ListView } from './ListView';
 import { PlayListItem } from './PlayListItem';
-import { IPlayListController } from 'controllers/IPlayListController';
 
 export class PlayListView extends ListView<Music> {
 
