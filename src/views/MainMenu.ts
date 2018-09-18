@@ -22,13 +22,14 @@ export class MainMenu extends ParentView {
 
 		const homeMenu = $('<button>').addClass('menu');
 		homeMenu.html(material('home'));
-		homeMenu.addClass('active');
 		homeMenu.on('click',
 			_ => this.onMenuSelect(homeMenu, MainMenuItem.HOME));
 		this.addJQuery(homeMenu);
+		homeMenu.hide();
 
 		const playListMenu = $('<button>').addClass('menu');
 		playListMenu.html(material('queue_music'));
+		playListMenu.addClass('active');
 		playListMenu.on('click',
 			_ => this.onMenuSelect(playListMenu, MainMenuItem.PLAYLIST));
 		this.addJQuery(playListMenu);

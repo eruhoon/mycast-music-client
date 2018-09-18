@@ -103,7 +103,7 @@ export class BaseMusicView extends ListItem {
 			this.onDeleteButtonClick();
 			return false;
 		});
-		// deleteButton.hide();
+		deleteButton.hide();
 		deleteButton.appendTo(this.mMenuView);
 
 		this.mTagView = $('<div>').addClass('tag-view')

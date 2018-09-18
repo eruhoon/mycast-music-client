@@ -4,7 +4,6 @@ import { RepeatMode } from 'models/Player';
 import { PlayState } from 'models/PlayState';
 
 import { BasePlayerView } from './BasePlayerView';
-import { LyricsView } from './LyricsView';
 
 export class PlayerView extends BasePlayerView {
 
@@ -20,9 +19,6 @@ export class PlayerView extends BasePlayerView {
 
 		this.mCurrentTime = 0;
 		this.mDuration = 0;
-
-		$('#btnNext').on('click', e => { this.nextPlay(); });
-		$('#btnPrev').on('click', e => { this.prevPlay(); });
 
 		this.init();
 	}
@@ -44,6 +40,10 @@ export class PlayerView extends BasePlayerView {
 
 	public onPrevButtonClick(): void {
 		this.mController.playPrev();
+	}
+
+	public onNextButtonClick(): void {
+		this.mController.playNext();
 	}
 
 	public onPlayPauseButtonClick(): void {

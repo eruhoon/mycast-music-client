@@ -124,7 +124,7 @@ export class BasePlayerView extends ParentView implements IPlayerView {
 
 		this.mNextButton = $('<button>');
 		this.mNextButton.html(material('skip_next'));
-		this.mNextButton.on('click', () => this.onPrevButtonClick());
+		this.mNextButton.on('click', () => this.onNextButtonClick());
 		this.mNextButton.appendTo(leftButtonView);
 
 		this.mShuffleButton = $('<button>');
@@ -257,6 +257,8 @@ export class BasePlayerView extends ParentView implements IPlayerView {
 	public onSeekBarClick(offset: number): void { }
 
 	public onPrevButtonClick(): void { }
+
+	public onNextButtonClick(): void { }
 
 	public onPlayPauseButtonClick(): void { }
 

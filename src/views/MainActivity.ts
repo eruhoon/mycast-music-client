@@ -76,6 +76,8 @@ export class MainActivity extends BaseActivity
 		this.mPlayListTab.setPlayListController(this.mController);
 
 		this.mController.loadPlayList();
+
+		this.selectTab(MainMenuItem.PLAYLIST);
 	}
 
 	public setBackground(background: string) {
@@ -90,6 +92,10 @@ export class MainActivity extends BaseActivity
 	}
 
 	protected onMenuSelect(item: MainMenuItem) {
+		this.selectTab(item);
+	}
+
+	private selectTab(item: MainMenuItem) {
 		switch (item) {
 			case MainMenuItem.PLAYLIST:
 				this.mHomeView.hide();

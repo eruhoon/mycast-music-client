@@ -77,6 +77,7 @@ export class MainController
 		let midx = music.getIndex();
 		$.post(url, { hash: this.mHash, midx: midx }, (result: boolean) => {
 			if (result) {
+				this.mPlayItems.push(music);
 				this.mPlayListView.addPlayListItem(music);
 				new Toast('곡을 재생목록에 담았습니다.').toast();
 			} else {
@@ -110,9 +111,8 @@ export class MainController
 		$.post('/home/music/listremove', {
 			hash: this.mHash,
 			midx: midx
-		}, function (res) {
+		}, res => {
 			if (!res) return;
-			//favoriteInstance.dom.remove();
 		});
 	}
 
@@ -155,7 +155,17 @@ export class MainController
 	}
 
 	public playPrev() {
+		if (this.mNowPlay === null) {
+			console.warn('No Playing Music');
+			return;
+		}
 
+		let idx = this.mPlayItems.findIndex(item => item === this.mNowPlay);
+		if (idx > 0) {
+			this.playMusic(this.mPlayItems[idx - 1]);
+		} else {
+			new Toast('첫 번째 곡입니다.').toast();
+		}
 	}
 
 	public playMusic(music: Music) {
@@ -195,14 +205,18 @@ export class MainController
 		this.mPlayerView.init();
 	}
 
-	public nextMusic() {
+	public playNext() {
 		if (this.mNowPlay === null) {
 			console.warn('No Playing Music');
 			return;
 		}
 
-		//this.mAudio.load();
-
+		let idx = this.mPlayItems.findIndex(item => item === this.mNowPlay);
+		if (idx < this.mPlayItems.length - 1) {
+			this.playMusic(this.mPlayItems[idx + 1]);
+		} else {
+			new Toast('마지막 곡입니다.').toast();
+		}
 	}
 
 	public seek(offset: number) {
@@ -314,13 +328,9 @@ export class MainController
 		});
 	}
 
-	private onPlay() {
-		console.log('onPlay');
-	}
+	private onPlay() { }
 
-	private onPause() {
-		console.log('onPause');
-	}
+	private onPause() { }
 
 	private onEnded() {
 		this.mPlayerView.setPlayState(PlayState.INIT);
@@ -329,7 +339,16 @@ export class MainController
 			case RepeatMode.ONE:
 				this.playMusic(this.mNowPlay);
 				break;
+
 			case RepeatMode.ALL:
+				let idx = this.mPlayItems.findIndex(item => item === this.mNowPlay);
+				if (idx < this.mPlayItems.length - 1) {
+					this.playNext();
+				} else {
+					this.playMusic(this.mPlayItems[0]);
+				}
+				break;
+			default:
 				this.playNext();
 		}
 	}

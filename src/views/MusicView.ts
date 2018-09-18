@@ -30,6 +30,7 @@ export class MusicView extends BaseMusicView {
 	}
 
 	protected onPlayButtonClick() {
+		this.mController.addPlayList(this.mMusic);
 		this.mController.playMusic(this.mMusic);
 	}
 
@@ -52,7 +53,6 @@ export class MusicView extends BaseMusicView {
 	protected onTagEditorSubmit(query: string) {
 		let tags = query.replace(/ /g, '').split(',');
 		this.mController.setTags(this.mMusic, tags, result => {
-			console.log(result);
 			this.setTags(result);
 		});
 	}

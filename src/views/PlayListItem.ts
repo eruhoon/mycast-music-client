@@ -10,6 +10,7 @@ export class PlayListItem extends ListItem {
 	private mIconView: JQuery;
 	private mArtistView: JQuery;
 	private mTitleView: JQuery;
+	private mRemoveButton: JQuery;
 
 	private mOnRemoveButtonClickCallback: Callback;
 
@@ -39,13 +40,13 @@ export class PlayListItem extends ListItem {
 		const menuSection = $('<div>').addClass('menu-section');
 		this.addJQuery(menuSection);
 
-		const removeButton = $('<button>');
-		removeButton.html('<i class=material-icons>remove</i>')
-		removeButton.on('click', () => {
+		this.mRemoveButton = $('<button>');
+		this.mRemoveButton.html('<i class=material-icons>remove</i>')
+		this.mRemoveButton.on('click', () => {
 			this.mOnRemoveButtonClickCallback();
 			return false;
 		})
-		removeButton.appendTo(menuSection);
+		this.mRemoveButton.appendTo(menuSection);
 
 		this.mOnRemoveButtonClickCallback = () => { };
 	}
@@ -57,6 +58,7 @@ export class PlayListItem extends ListItem {
 	}
 
 	public remove() {
+		this.mRemoveButton.off();
 		super.remove(ViewAnimation.FADE_OUT);
 	}
 
