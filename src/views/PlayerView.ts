@@ -94,62 +94,12 @@ export class PlayerView extends BasePlayerView {
 		this.mController.setVolume(offset * 100);
 	}
 
-	private prevPlay() {
-		var nextDom;
-		if (nowPlay.dom.prev().length === 0) {
-			var l = nowPlay.dom.parent().children().length;
-			nextDom = $(nowPlay.dom.parent().children()[l - 1]);
-		}
-		else if (FLAG_SHUFFLE_MODE === true) {
-			var l = nowPlay.dom.parent().children().length;
-			var r = Math.floor(Math.random() * l);
-			nextDom = $(nowPlay.dom.parent().children()[r]);
-		}
-		else {
-			nextDom = nowPlay.dom.prev();
-		}
-		__self.play(nextDom.data('instance'));
-	}
-
-	private nextPlay() {
-		var nextDom;
-		if (nowPlay.dom.next().length === 0) {
-			nextDom = $(nowPlay.dom.parent().children()[0]);
-		}
-		else if (FLAG_SHUFFLE_MODE === true) {
-			var l = nowPlay.dom.parent().children().length;
-			var r = Math.floor(Math.random() * l);
-			nextDom = $(nowPlay.dom.parent().children()[r]);
-		}
-		else {
-			nextDom = nowPlay.dom.next();
-		}
-		__self.play(nextDom.data('instance'));
-	}
-
 	public setMusicInfo(music: Music) {
 		this.mArtistView.text(music.getArtist());
 		this.mTitleView.text(music.getTitle());
 		this.setIcon(music.getIcon());
 		const bitrate = Math.round(music.getBitrate() / 1000);
 		this.mBitrateView.text(`${bitrate}k`);
-	}
-
-	private onEnded() {
-		$('#btnPlay>i').attr('class', 'mdi-av-play-arrow');
-		$('#btnPlay').off().on('click', function () {
-			dom.play();
-		})
-		$('.music-seek-bar>.determinate').css('width', 0);
-
-		// LYRICS MODULE HERE
-		switch (FLAG_REPEAT_MODE) {
-			case 'ALL':
-				nextPlay();
-				break;
-			default:
-				break;
-		}
 	}
 
 	public setCurrentTime(current: number) {
