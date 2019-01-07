@@ -14,17 +14,20 @@ export class LyricsView extends BaseView {
 		super('<div>');
 		this.setClass('lyrics-view');
 
+		let contentView = $('<div>').addClass('content');
+		this.addJQuery(contentView);
+
 		this.mPrevView = $('<div>').addClass('prev');
-		this.addJQuery(this.mPrevView);
+		contentView.append(this.mPrevView);
 
 		this.mNowView = $('<div>').addClass('now');
 		this.mNowView.addClass('brown-text text-lighten-4');
 		this.mNowView.css('font-weight', 'bold');
 		this.mNowView.text('Cast Player Lyrics');
-		this.addJQuery(this.mNowView);
+		contentView.append(this.mNowView);
 
 		this.mNextView = $('<div>').addClass('next');
-		this.addJQuery(this.mNextView);
+		contentView.append(this.mNextView);
 
 		this.mLyrics = null;
 		this.mCurrentTime = 0;
