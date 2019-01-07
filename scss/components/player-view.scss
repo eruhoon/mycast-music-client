@@ -84,6 +84,14 @@
 			}
 		}
 
+		&>.lyrics-view {
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			width: calc(100% - 20px);
+			height: 80px;
+		}
+
 		&>.component {
 			position: absolute;
 			left: 0;
